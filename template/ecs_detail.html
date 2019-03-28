@@ -1,0 +1,38 @@
+{% include 'header.html' %}
+    {% include 'admin_nav.html' %}
+    <div class='col-md-10'style='margin-bottom:15px;'>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>端口列表</th>
+          {%ifequal type 'ecs' %}
+          <th>服务名称</th>
+          {% else %}
+          <th>web截图</th>
+          {% endifequal  %}
+            <th>web URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%ifequal type 'ecs' %}
+          {% for r,v in res.items %}
+              <tr>
+                  <td>  {{ r }}              </td>
+                  <td>  {{ v }}              </td>
+                  <td> <a href="http://{{ ip }}:{{r}}" class="btn btn-primary" target="_blank">web访问</a></td>
+              </tr>
+          {% endfor %}
+        {% else %}
+          {% for r,v in res.items %}
+              <tr>
+                  <td>  {{ r }}              </td>
+                  <td> <img src='{{domain}}/images_{{ day }}/{{ v }}' onerror="this.src='http://sec.epet.com/loading.gif'"  style='width:300px;border:1px solid red;'>              </td>
+                  <td> <a href="{{r}}" class="btn btn-primary" target="_blank">web访问</a></td>
+              </tr>
+          {% endfor %}
+        {% endifequal  %}
+      </tbody>
+    </table>
+
+    </div>
+{% include 'footer.html' %}

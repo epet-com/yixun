@@ -1,0 +1,29 @@
+{% include 'header.html' %}
+    {% include 'admin_nav.html' %}
+    <div class='col-md-10'>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>ip列表</th>
+          <th>端口数量</th>
+          {%ifequal type 'ecs' %}
+            <th>扫描日志</th>
+          {% endifequal  %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in res %}
+            <tr>
+                <td>  {{r.ip}}              </td>
+                <td> <a href="/ecs_port?ip={{r.ip}}&type={{ type }}" target="_blank"> {{r.num}}</a></td> 
+                {%ifequal type 'ecs' %}
+                <td>
+                    <a class='btn btn-primary' href="{{domain}}/masscan_{{day}}/masscan{{r.ii}}.txt" target="_blank"> 查看</a> 
+                </td>
+                {% endifequal  %}
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+{% include 'footer.html' %}

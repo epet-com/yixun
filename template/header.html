@@ -1,0 +1,42 @@
+<html xmlns:wb="http://open.weibo.com/wb">
+    <head>
+        <title>安全管理平台</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="keywords"    content="">
+        <meta name="description" content="">
+        <meta content="width=device-width,initial-scale=1.0" name="viewport">
+        <link rel="icon"  type="image/x-icon"  href="//static.epetbar.com/favicon.ico">
+        <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.0.0/css/bootstrap.min.css">
+        <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            img:hover { transform: scale(0.8); transition: .5s;}
+        </style>
+    </head>
+    <body>
+        <nav class='navbar navbar-default navbar-fixed-top'>
+            <div class='navbar-header'>
+                <div class='navbar-brand' style="padding-top: 0px; padding-bottom: 0px;">
+                    <button type="button" class="text-right navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/" target='_blank'>
+                    </a>
+                </div>
+            </div>
+            <div class='collapse navbar-collapse' id="example-navbar-collapse">
+                <ul class='nav navbar-nav'>
+                </ul>
+            </div>
+            <script>
+                $('ul li').click(function(){
+                   $('ul li').removeClass('active');
+                   $(this).addClass('active');
+                });
+
+            </script>
+        </nav>
+        <p id='page_common' style='margin-top:50px;'></p>

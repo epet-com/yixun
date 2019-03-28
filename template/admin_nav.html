@@ -1,0 +1,8 @@
+    <div class='clearfix'></div>
+    <div class='col-md-10'style='margin-bottom:15px;'>
+        <ul class="nav nav-tabs " style='text-align:center;'>
+            <li class="{% ifequal type 'no' %}  active {% endifequal %}""><a href="/">概况</a></li>
+            <li class="{% ifequal type 'ecs' %} active {% endifequal %}"><a href="/ecs/?type=ecs">ECS</a></li>
+            <li class="{% ifequal type 'slb' %} active {% endifequal %}"><a href="/slb/?type=slb">SLB</a></li>
+        </ul>
+    </div>

@@ -1,0 +1,25 @@
+{% include 'header.html' %}
+    {% include 'admin_nav.html' %}
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <div class='col-md-10'>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>类型</th>
+          <th>数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ECS</td>
+            <td><a href="/ecs/?type=ecs">{{ecs_num}}</a></td>
+        </tr>
+        <tr>
+            <td>SLB</td>
+            <td><a href="/slb/?type=slb">{{slb_num}}</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+    </div>
+{% include 'footer.html' %}
