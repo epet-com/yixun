@@ -23,9 +23,10 @@
     参考：https://www.cnblogs.com/taurusfy/p/8464602.html, 并添加到PATH路径中  
     根据chrome浏览器的版本，选择合适的驱动下载，并添加到PATH路径中  
     http://npm.taobao.org/mirrors/chromedriver  
-5. 安装masscan  
+5. 安装masscan和nmap
     1.github:https://github.com/robertdavidgraham/masscan ,将可执行文件添加到PATH路径中   
     2.已经将可执行文件放入到项目的masscan中
+    3.namp下载地址：https://nmap.org/download.html，将可执行文件添加到PATH路径中
 6. 修改config.ini配置  
     [redis]     #redis配置  
     [aliyun_ak] #阿里云账号的ak  
