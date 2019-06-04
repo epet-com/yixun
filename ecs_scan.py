@@ -1,45 +1,26 @@
 from aliyun_ecs import getAliyunEcsIp
 from redis_conf import RedisDB
-import nmap,os,json,time,platform,requests,configparser
+import nmap,os,json,time,configparser
 
 class PortScan():
-    def __init__(self,account,passkey,endpoint,name):
-        
+    def __init__(self,account,passkey,endpoint,name,nscan):
+        # ecs_ip = getAliyunEcsIp('ip',account,passkey,endpoint)
+        ecs_ip = ['192.168.0.19','192.168.0.212','192.168.0.222']
+        self.port_scan(ecs_ip,'ecs',name,nscan)
 
-        self.port_scan(ecs_ip,'ecs',name)
-
-    def port_scan(self,ip,type,name):
-        day = time.strftime("%Y-%m-%d",time.localtime())
-        nscan = nmap.PortScanner()
+    def port_scan(self,ip,type,name,nscan):
+        day   = time.strftime("%Y-%m-%d",time.localtime())
         num = 0  
         for k in ip:
             num = num+1 
             print('=============================' )
-            print('开始扫描第 '+str(num)+' 台ecs:' )
-            '''判断主机的存活性'''
-            if platform.system() == 'Linux':
-                '''linux'''
-                cmd = 'ping -c 4 '+k
-                rate = '2000' #发包速率
-            else:
-                '''window'''
-                cmd = 'ping '+k
-                rate = '1000' #发包速率
-
-
-            print('-检查ecs存活状态:'+cmd)
-            res= os.system(cmd)
-            if res !=0:
-                #ping不通，有可能是没有开启icmp协议，其他端口有可能是开启的
-                print('-账号：'+name+' 主机:'+k+' is not alive')
-            else:
-                print('-账号：'+name+' 主机:'+k+' is alive')
+            print('开始扫描第 '+str(num)+' 台ECS:' )
 
             dirname = IMG_DIR+'/'+name+'_masscan_'+day
             if not os.path.exists(dirname):
                 os.mkdir(dirname)
             '''masscan全端口扫描'''
-            cmd = 'masscan ' + k + ' -p0-65535 -oJ '+dirname+'/masscan_' + k+'.txt --rate '+rate
+            cmd = 'masscan '+k+' -p0-65535 -oJ '+dirname+'/masscan_' + k+'.txt --rate 1000'
             try:
                 print('-开始对主机 '+k+' 进行masscan进行扫描:'+cmd)
                 res = os.system(cmd)
@@ -77,7 +58,6 @@ class PortScan():
             con = result['scan'][str(ip)]['tcp'][int(port)]
             s = '-ip:'+ip+' port:'+port+' product:' + con['product'] + ' name:' + con['name'] + ' version:' + con['version'] + ' state:' + con[
                 'state']
-            print(s)
             if con['state'] == 'open':
                 '''redis 写库操作'''
                 if con['product']:  
@@ -99,7 +79,7 @@ class PortScan():
             return False
 
     def readFile(self, filepath):
-        with open( filepath, 'r') as f:
+        with open(filepath, 'r') as f:
             res = f.readlines()
         return res
 
@@ -109,33 +89,18 @@ if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.read(os.getcwd()+'/config.ini',encoding='utf-8')
     IMG_DIR = config.get('img_dir','dirname')
-    TEST_ECS_IP = config.get('test_ecs','ip')
-    TEST_SLB_ID = config.get('test_slb','id')
-
-    ecs_ip = []
-    if len( TEST_ECS_IP ) == 0:
-        #如果是正式环境
-        ecs_ip = getAliyunEcsIp(account,passkey,endpoint) 
-        if len(ecs_ip) == 0:
-            print('ECS数量为0')
+   
+    aliyun_ak_num = int(config.get('aliyun_ak_num','num'))
+    nscan = nmap.PortScanner()
+    for  i in range(aliyun_ak_num):
+        i = str(i+1)
+        account  = config.get('aliyun_ak','account_' +i)
+        passkey  = config.get('aliyun_ak','passkey_' +i)
+        endpoint = config.get('aliyun_ak','endpoint_'+i)
+        name     = config.get('aliyun_ak','name_'+i)
+        if account=='' or  passkey == '' or endpoint =='' or name=='':
+            print('account_'+i+'|passkey_'+i+'|endpoint_'+i+'|name_'+i+'不能为空')
             exit(0)
-        aliyun_ak_num = int(config.get('aliyun_ak_num','num'))
-        for  i in range(1,aliyun_ak_num+1):
-            i = str(i)
-            account = config.get('aliyun_ak','account_'+i)
-            passkey = config.get('aliyun_ak','passkey_'+i)
-            endpoint = config.get('aliyun_ak','endpoint_'+i)
-            name   = config.get('aliyun_ak','name_'+i)
-            if account=='' or  passkey == '' or endpoint =='' or name=='':
-                print('account_'+i+'|passkey_'+i+'|endpoint_'+i+'|name_'+i+'不能为空')
-                exit(0)
-            PortScan(account,passkey,endpoint,name)
-    else:
-        #如果是测试环境
-        ecs_ip.append(TEST_ECS_IP)
-        PortScan(account='',passkey='',endpoint='',name='')
-
-    
-
+        PortScan(account,passkey,endpoint,name,nscan)
     cost = round(time.time() - start,2)
     print('扫描共花费:'+str(cost) + ' s')

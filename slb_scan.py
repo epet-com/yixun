@@ -12,39 +12,29 @@ config = configparser.ConfigParser()
 config.read(os.getcwd()+'/config.ini','utf-8')
 IMG_DIR = config.get('img_dir','dirname')
 TIMEOUT = config.get('timeout','selenium_timeout')
-TEST_SLB_ID = config.get('test_slb','id')
 
 if __name__ == '__main__':
 	print('-----------------------数据开始处理----------------------------')
 	print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
 	start = time.time()
 	ecs_ip = []
-	if len( TEST_SLB_ID ) == 0:
-    	#如果是生产环境
-		aliyun_ak_num = int(config.get('aliyun_ak_num','num'))
-	else:
-    	#如果是测试环境
-		aliyun_ak_num = 1
+	aliyun_ak_num = int(config.get('aliyun_ak_num','num'))
 
-	for  ai in range(1,aliyun_ak_num+1):
-		ai = str(ai)
+	for  ai in range(aliyun_ak_num):
+		ai = str(ai+1)
 		account  = config.get('aliyun_ak','account_'+ai)
 		passkey  = config.get('aliyun_ak','passkey_'+ai)
 		endpoint = config.get('aliyun_ak','endpoint_'+ai)
 		name     = config.get('aliyun_ak','name_'+ai)
 
 		slbids = []
-		if len( TEST_SLB_ID ) == 0:
-			slbids = getAliyunSlbIp('id',account,passkey,endpoint)
-		else:
-			slbids.append(TEST_SLB_ID)
+		slbids = getAliyunSlbIp('id',account,passkey,endpoint)
 
 		if len(slbids) == 0:
 			print('账号：'+name+'SLB数量为0')
-			exit(0)
+			exit()
 
 		#先清空
-		RedisDB().getConnect().delete('getAliyunEcs')
 		client = AcsClient(account,passkey,endpoint)
 
 		'''获取ecs的ip和id映射关系 '''
