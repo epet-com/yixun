@@ -4,8 +4,7 @@ import nmap,os,json,time,configparser
 
 class PortScan():
     def __init__(self,account,passkey,endpoint,name,nscan):
-        # ecs_ip = getAliyunEcsIp('ip',account,passkey,endpoint)
-        ecs_ip = ['192.168.0.19','192.168.0.212','192.168.0.222']
+        ecs_ip = getAliyunEcsIp('ip',account,passkey,endpoint)
         self.port_scan(ecs_ip,'ecs',name,nscan)
 
     def port_scan(self,ip,type,name,nscan):
