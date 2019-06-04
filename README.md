@@ -23,16 +23,17 @@
     参考：https://www.cnblogs.com/taurusfy/p/8464602.html, 并添加到PATH路径中  
     根据chrome浏览器的版本，选择合适的驱动下载，并添加到PATH路径中  
     http://npm.taobao.org/mirrors/chromedriver  
-5. 安装masscan  
+5. 安装masscan和nmap
     1.github:https://github.com/robertdavidgraham/masscan ,将可执行文件添加到PATH路径中   
     2.已经将可执行文件放入到项目的masscan中
+    3.namp下载地址：https://nmap.org/download.html，将可执行文件添加到PATH路径中
 6. 修改config.ini配置  
     [redis]     #redis配置  
     [aliyun_ak] #阿里云账号的ak  
     [img_site]  #扫描日志的域名  
     [img_dir]   #浏览器截图目录,建议设置为【扫描日志的域名】的根目录  
     [timeout]   #设置selenium的模拟浏览器的超时时间  
-7. 建议在计划任务中增加任务    
+7. 建议在计划任务中增加周期性扫描任务    
   eg：* * * * * /usr/local/bin/python3 ecs_scan.py      >> ecs_scan.log 2>&1  
   eg：* * * * * /usr/local/bin/python3 ecs_slb.py       >> slb_scan.log 2>&1
 8. 修改django的配置文件settings.py中的ALLOWED_HOSTS成主机ip
@@ -40,7 +41,9 @@
    python3 manage.py runsever 主机ip:5000
  
  //todo   
- 1.多进程扫描=> 分布式任务调度扫描  
- 2.多个阿里云账号统一管理  
- 3.钉钉/邮箱报警  
- 4.容器化部署
+ 1.多进程扫描=> 分布式任务调度扫描  已实现
+ 2.多个阿里云账号统一管理  已实现
+ 3.钉钉/邮箱报警  已实现
+ 4.容器化部署 已实现
+ 
+ 可以加wx:cqwanhl详聊
