@@ -32,7 +32,7 @@
     [img_site]  #扫描日志的域名  
     [img_dir]   #浏览器截图目录,建议设置为【扫描日志的域名】的根目录  
     [timeout]   #设置selenium的模拟浏览器的超时时间  
-7. 建议在计划任务中增加任务    
+7. 建议在计划任务中增加周期性扫描任务    
   eg：* * * * * /usr/local/bin/python3 ecs_scan.py      >> ecs_scan.log 2>&1  
   eg：* * * * * /usr/local/bin/python3 ecs_slb.py       >> slb_scan.log 2>&1
 8. 修改django的配置文件settings.py中的ALLOWED_HOSTS成主机ip
@@ -40,7 +40,9 @@
    python3 manage.py runsever 主机ip:5000
  
  //todo   
- 1.多进程扫描=> 分布式任务调度扫描  
- 2.多个阿里云账号统一管理  
- 3.钉钉/邮箱报警  
- 4.容器化部署
+ 1.多进程扫描=> 分布式任务调度扫描  已实现
+ 2.多个阿里云账号统一管理  已实现
+ 3.钉钉/邮箱报警  已实现
+ 4.容器化部署 已实现
+ 
+ 可以加wx:cqwanhl详聊
