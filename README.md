@@ -47,3 +47,10 @@
  4.容器化部署 已实现
  
  可以加wx:cqwanhl详聊
+ 
+ 项目截图：
+ ![image](images/1.jpg)
+  ![image](images/2.jpg)
+   ![image](images/3.jpg)
+    ![image](images/4.jpg)
+     ![image](images/5.jpg)
