@@ -30,8 +30,10 @@
     http://npm.taobao.org/mirrors/chromedriver  
     
 5. 安装masscan和nmap
-    1.github:https://github.com/robertdavidgraham/masscan ,将可执行文件添加到PATH路径中   
+    1.github:https://github.com/robertdavidgraham/masscan ,将可执行文件添加到PATH路径中 
+    
     2.已经将可执行文件放入到项目的masscan中
+    
     3.namp下载地址：https://nmap.org/download.html，将可执行文件添加到PATH路径中
     
 6. 修改config.ini配置  
