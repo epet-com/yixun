@@ -16,6 +16,7 @@
           nmap：7.70
           masscan: 1.0.3
           其余请详见requirements.txt
+      
 安装手册：   
 1. 下载源码  
    git clone https://github.com/epet-com/yixun.git  
@@ -29,6 +30,7 @@
 4. 安装chrome浏览器(no-headless) 及 驱动   
     根据chrome浏览器的版本，选择合适的驱动下载，并添加到PATH路径中  
     http://npm.taobao.org/mirrors/chromedriver  
+    备注：注意selenium版本、chrome驱动的兼容性
     
 5. 安装masscan和nmap
 
@@ -41,7 +43,7 @@
 6. 修改config.ini配置  
     [redis]     #redis配置  
     [aliyun_ak] #阿里云账号的ak
-       备注：如果是主账号的ak，可以直接使用，如果是子账号的ak，请给子账号开启相应的权限
+    备注：如果是主账号的ak，可以直接使用，如果是子账号的ak，请给子账号开启相应的权限
     [img_site]  #扫描日志的访问域名  
     [img_dir]   #浏览器截图存放目录,建议设置为【扫描日志的域名】的根目录  
     [timeout]   #设置selenium的模拟浏览器的超时时间  
@@ -57,11 +59,8 @@
  
  //TODO   
  1.多进程扫描=> 分布式任务调度扫描  已实现
- 
  2.多个阿里云账号统一管理  已实现
- 
  3.钉钉/邮箱报警  已实现
- 
  4.容器化部署 已实现
  
  有任何问题可以加wx:cqwanhl详聊
